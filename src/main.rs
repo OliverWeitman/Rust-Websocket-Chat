@@ -28,8 +28,8 @@ async fn main() {
     channels.lock().unwrap().insert("all".to_string(), tx);
 
     loop {
-        let ws_stream = server.accept().await;
-        match ws_stream {
+        let stream = server.accept().await;
+        match stream {
             Ok((stream, _)) => {
                 let channels = channels.clone(); // Clone the Arc so we can have it in the loop
                 let start_channel = channels.lock().unwrap().get("all").unwrap().clone(); //Get the "all" channel from the hashmap
